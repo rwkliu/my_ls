@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <unistd.h>
+#include <time.h>
 
 int main() {
   DIR *folder;  //directory handle for the opendir function
   struct dirent *entry; //contains directory entry information
   struct stat filestat; //contains info about a directory entry
   int files = 0;
+  long size = 0;
 
   folder = opendir(".");
   if(folder == NULL) {
@@ -24,10 +27,12 @@ int main() {
     files++;
     stat(entry->d_name, &filestat);
     if(S_ISDIR(filestat.st_mode)) {
-      printf("%d %s: %s\n", files, "Dir", entry->d_name);
+      printf("%d %s: %s    %s\n", files, "Dir", entry->d_name, 
+          ctime(&filestat.st_mtim.tv_sec));
     }
     else {
-      printf("%d %s: %s\n", files, "File", entry->d_name);
+      printf("%d %s: %s %ld %s\n", files, "File", entry->d_name, 
+          filestat.st_size, ctime(&filestat.st_mtim.tv_sec));
     }
   }
 
