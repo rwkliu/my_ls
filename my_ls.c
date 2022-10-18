@@ -22,12 +22,7 @@ int main(int argc, char *argv[]) {
   // struct stat filestat;
   
   printf("%d\n", argc);
-  for(int i = 1; i <= argc; i++) {
-    if(argc == 1) {
-      printf("%d\n", argc);
-      folder = opendir(".");
-      break;
-    }
+  for(int i = 1; i < argc; i++) {
     if(strcmp(argv[i], "-a") == 0) {
       a = 1;
     }
@@ -40,20 +35,25 @@ int main(int argc, char *argv[]) {
     }
     else {
       folder = opendir(argv[i]);
+      if(folder == NULL) {
+        printf("Unable to open directory\n");
+        return 1;
+      }
       printf("folder set to %s\n", argv[i]);
     }
-
-    if(folder == NULL) {
-      folder = opendir(".");
-      printf("folder set to current directory\n");
-    }
-
     printf("a: %d\n", a);
     printf("t: %d\n", t);
   }
 
+  if(argc == 1) {
+    printf("%d\n", argc);
+    folder = opendir(".");
+  }
+
   if(folder == NULL) {
-    printf("Unable to read directory\n");
+    folder = opendir(".");
+    printf("Folder set to current directory\n");
+    printf("Directory is opened!\n");
   }
   else {
     entry = readdir(folder);
