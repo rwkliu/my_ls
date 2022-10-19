@@ -15,15 +15,15 @@ typedef struct s_dirent_array {
 } dirent_array;
 #endif
 
-//Open the directory
-void open_folder(char *directory) {
-  DIR *folder = opendir(directory);
-  if(folder == NULL) {
-      printf("Unable to open directory %s\n", directory);
+//Check if directory is found
+int check_dir(char *directory) {
+  DIR *dir = opendir(directory);
+  if(dir == NULL) {
+      return 1;
     }
-    else {
-      printf("Directory %s is opened!\n", directory);
-    }
+  else {
+    return 0;
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -48,11 +48,19 @@ int main(int argc, char *argv[]) {
   //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
     printf("Non-option argument %d %s\n", i, argv[i]);
-    open_folder(argv[i]);
+    if(check_dir(argv[i]) == 1) {
+      printf("Unable to open directory\n");
+      return 1;
+    }
+    else {
+      folder = opendir(argv[i]);
+      printf("Directory opened\n");
+    }
   }
   //If no non-options arguments were valid directories, open the current directory
   if(folder == NULL) {
-    open_folder(".");
+    folder = opendir(".");
+    printf("Default: current directory opened\n");
   }
   return 0;
 }
