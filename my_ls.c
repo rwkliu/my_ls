@@ -31,9 +31,8 @@ int main(int argc, char *argv[]) {
   int tflag = 0;
   int curr_opt;
   struct dirent *entry;
-  // struct stat filestat;
   
-  printf("%d\n", argc);
+  //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
     switch(curr_opt){
       case 'a':
@@ -45,12 +44,12 @@ int main(int argc, char *argv[]) {
     }
   }
   printf("aflag = %d, tflag = %d\n", aflag, tflag);
-
+  //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
     printf("Non-option argument %d %s\n", i, argv[i]);
     open_folder(argv[i]);
   }
-
+  //If no non-options arguments were valid directories, open the current directory
   if(folder == NULL) {
     open_folder(".");
   }
