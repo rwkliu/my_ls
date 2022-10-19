@@ -16,22 +16,22 @@ typedef struct s_dirent_array {
 
 int main(int argc, char *argv[]) {
   DIR *folder = NULL;
-  int a = 0;
-  int t = 0;
+  int aflag = 0;
+  int tflag = 0;
   struct dirent *entry;
   // struct stat filestat;
   
   printf("%d\n", argc);
   for(int i = 1; i < argc; i++) {
     if(strcmp(argv[i], "-a") == 0) {
-      a = 1;
+      aflag = 1;
     }
     else if(strcmp(argv[i], "-t") == 0) {
-      t = 1;
+      tflag = 1;
     }
     else if(strcmp(argv[i], "-at") == 0 || strcmp(argv[i], "-ta") == 0) {
-      a = 1; 
-      t = 1;
+      aflag = 1; 
+      tflag = 1;
     }
     else {
       folder = opendir(argv[i]);
@@ -41,8 +41,8 @@ int main(int argc, char *argv[]) {
       }
       printf("folder set to %s\n", argv[i]);
     }
-    printf("a: %d\n", a);
-    printf("t: %d\n", t);
+    printf("a: %d\n", aflag);
+    printf("t: %d\n", tflag);
   }
 
   if(argc == 1) {
