@@ -15,6 +15,7 @@ typedef struct s_dirent_array {
 } dirent_array;
 #endif
 
+//Open the directory
 void open_folder(char *directory) {
   DIR *folder = opendir(directory);
   if(folder == NULL) {
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]) {
   struct dirent *entry;
   // struct stat filestat;
   
-  printf("%d\n", argc);
+  //Parse the optional arguments
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
     switch(curr_opt){
       case 'a':
@@ -46,11 +47,12 @@ int main(int argc, char *argv[]) {
   }
   printf("aflag = %d, tflag = %d\n", aflag, tflag);
 
+  //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
     printf("Non-option argument %d %s\n", i, argv[i]);
     open_folder(argv[i]);
   }
-
+  //If the non-option arguments were invalid directories, open the current directory
   if(folder == NULL) {
     open_folder(".");
   }
