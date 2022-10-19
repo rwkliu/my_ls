@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <time.h>
+#include <unistd.h>
 
 #ifndef STRUCT_DIRENT_ARRAY
 #define STRUCT_DIRENT_ARRAY
@@ -14,51 +15,44 @@ typedef struct s_dirent_array {
 } dirent_array;
 #endif
 
+void open_folder(char *directory) {
+  DIR *folder = opendir(directory);
+  if(folder == NULL) {
+      printf("Unable to open directory %s\n", directory);
+    }
+    else {
+      printf("Directory %s is opened!\n", directory);
+    }
+}
+
 int main(int argc, char *argv[]) {
   DIR *folder = NULL;
   int aflag = 0;
   int tflag = 0;
+  int curr_opt;
   struct dirent *entry;
   // struct stat filestat;
   
   printf("%d\n", argc);
-  for(int i = 1; i < argc; i++) {
-    if(strcmp(argv[i], "-a") == 0) {
-      aflag = 1;
+  while((curr_opt = getopt(argc, argv, "at")) != -1) {
+    switch(curr_opt){
+      case 'a':
+        aflag = 1;
+        break;
+      case 't':
+        tflag = 1;
+        break;
     }
-    else if(strcmp(argv[i], "-t") == 0) {
-      tflag = 1;
-    }
-    else if(strcmp(argv[i], "-at") == 0 || strcmp(argv[i], "-ta") == 0) {
-      aflag = 1; 
-      tflag = 1;
-    }
-    else {
-      folder = opendir(argv[i]);
-      if(folder == NULL) {
-        printf("Unable to open directory\n");
-        return 1;
-      }
-      printf("folder set to %s\n", argv[i]);
-    }
-    printf("a: %d\n", aflag);
-    printf("t: %d\n", tflag);
   }
+  printf("aflag = %d, tflag = %d\n", aflag, tflag);
 
-  if(argc == 1) {
-    printf("%d\n", argc);
-    folder = opendir(".");
+  for(int i = optind; i < argc; i++) {
+    printf("Non-option argument %d %s\n", i, argv[i]);
+    open_folder(argv[i]);
   }
 
   if(folder == NULL) {
-    folder = opendir(".");
-    printf("Folder set to current directory\n");
-    printf("Directory is opened!\n");
+    open_folder(".");
   }
-  else {
-    entry = readdir(folder);
-    printf("Directory is opened!\n");
-  }
-
   return 0;
 }
