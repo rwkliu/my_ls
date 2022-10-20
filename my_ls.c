@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
         break;
     }
   }
-  printf("aflag = %d, tflag = %d\n", aflag, tflag);
+  // printf("aflag = %d, tflag = %d\n", aflag, tflag);
   //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
     printf("Non-option argument %d %s\n", i, argv[i]);
@@ -47,13 +47,15 @@ int main(int argc, char *argv[]) {
   if(folder == NULL) {
     directory_name = ".";
     folder = opendir(directory_name);
-    printf("Default: current directory opened\n");
+    // printf("Default: current directory opened\n");
   }
 
   //Read directory entries
   num_files = count_entries(directory_name);
-  entry = readdir(folder);
-  printf("Number of files: %d\n", num_files);
+  while(entry = readdir(folder)) {
+    printf("%s\n", entry->d_name);
+  }
+
   closedir(folder);
   return 0;
 }
