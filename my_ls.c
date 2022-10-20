@@ -51,7 +51,8 @@ int main(int argc, char *argv[]) {
   }
 
   //Read directory entries
-  num_files = count_entries(directory_name);
+  num_files = count_entries(directory_name, aflag);
+  printf("aflag: %d number of files: %d\n", aflag, num_files);
   while(entry = readdir(folder)) {
     printf("%s\n", entry->d_name);
   }

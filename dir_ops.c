@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #include <dirent.h>
 #include <sys/stat.h>
 #include "dir_ops.h"
 
-int count_entries(char *dir_name) {
+int count_entries(char *dir_name, int aflag) {
   DIR *directory;
   int entries = 0;
   struct dirent *dir_entry;
@@ -11,7 +12,14 @@ int count_entries(char *dir_name) {
   directory = opendir(dir_name);
 
   while(dir_entry = readdir(directory)) {
-    entries++;
+    if(aflag == 0) {
+      if(strncmp(dir_entry->d_name,".", 1) != 0){
+        entries++;
+      }
+    }
+    else {
+      entries++;
+    }
   }
   closedir(directory);
   return entries;
