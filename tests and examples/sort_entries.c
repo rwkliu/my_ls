@@ -47,6 +47,7 @@ int main() {
     index++;
   }
 
+  //Swap the first two entries
   struct dirent *dirent_temp = entry_array.array[0];
   entry_array.array[0] = entry_array.array[1];
   entry_array.array[1] = dirent_temp;
