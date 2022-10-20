@@ -26,12 +26,24 @@ int check_dir(char *directory) {
   }
 }
 
+int count_entries(DIR *directory) {
+  int entries = 0;
+  struct dirent *dir_entry;
+
+  while(dir_entry = readdir(directory)) {
+    entries++;
+  }
+  return entries;
+}
+
 int main(int argc, char *argv[]) {
   DIR *folder = NULL;
   int aflag = 0;
   int tflag = 0;
+  int num_files = 0;
   int curr_opt;
   struct dirent *entry;
+  struct stat filestat;
   
   //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
@@ -62,5 +74,11 @@ int main(int argc, char *argv[]) {
     folder = opendir(".");
     printf("Default: current directory opened\n");
   }
+
+  //Read directory entries
+  entry = readdir(folder);
+  num_files = count_entries(folder);
+  printf("Number of files: %d\n", num_files);
+  
   return 0;
 }
