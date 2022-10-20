@@ -38,7 +38,8 @@ int main(int argc, char *argv[]) {
       return 1;
     }
     else {
-      folder = opendir(argv[i]);
+      directory_name = argv[i];
+      folder = opendir(directory_name);
       printf("Directory opened\n");
     }
   }
