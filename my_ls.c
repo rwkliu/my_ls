@@ -6,39 +6,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
-
-#ifndef STRUCT_DIRENT_ARRAY
-#define STRUCT_DIRENT_ARRAY
-typedef struct s_dirent_array {
-  int size;
-  struct dirent **array;
-} dirent_array;
-#endif
-
-//Check if directory is found
-int check_dir(char *directory) {
-  DIR *dir = opendir(directory);
-  if(dir == NULL) {
-      return 1;
-    }
-  else {
-    return 0;
-  }
-}
-
-int count_entries(char *dir_name) {
-  DIR *directory;
-  int entries = 0;
-  struct dirent *dir_entry;
-
-  directory = opendir(dir_name);
-
-  while(dir_entry = readdir(directory)) {
-    entries++;
-  }
-  closedir(directory);
-  return entries;
-}
+#include "dir_ops.h"
 
 int main(int argc, char *argv[]) {
   DIR *folder = NULL;
