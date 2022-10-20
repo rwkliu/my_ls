@@ -11,7 +11,7 @@
 #define STRUCT_DIRENT_ARRAY
 typedef struct s_dirent_array {
   int size;
-  char **array;
+  struct dirent **array;
 } dirent_array;
 #endif
 
@@ -26,13 +26,17 @@ int check_dir(char *directory) {
   }
 }
 
-int count_entries(DIR *directory) {
+int count_entries(char *dir_name) {
+  DIR *directory;
   int entries = 0;
   struct dirent *dir_entry;
+
+  directory = opendir(dir_name);
 
   while(dir_entry = readdir(directory)) {
     entries++;
   }
+  closedir(directory);
   return entries;
 }
 
@@ -42,6 +46,7 @@ int main(int argc, char *argv[]) {
   int tflag = 0;
   int num_files = 0;
   int curr_opt;
+  char *directory_name;
   struct dirent *entry;
   struct stat filestat;
   
@@ -71,14 +76,15 @@ int main(int argc, char *argv[]) {
   }
   //If no non-options arguments were valid directories, open the current directory
   if(folder == NULL) {
-    folder = opendir(".");
+    directory_name = ".";
+    folder = opendir(directory_name);
     printf("Default: current directory opened\n");
   }
 
   //Read directory entries
+  num_files = count_entries(directory_name);
   entry = readdir(folder);
-  num_files = count_entries(folder);
   printf("Number of files: %d\n", num_files);
-  
+  closedir(folder);
   return 0;
 }
