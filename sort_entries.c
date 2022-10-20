@@ -37,12 +37,15 @@ int main() {
 
   entry_array.size = count_entries(directory_name);
   folder = opendir(directory_name);
-  entry = readdir(folder);
 
   entry_array.array = malloc(entry_array.size * sizeof(struct dirent *));
 
   //Read directory entries and assign dirent_array->array point to the entries
-  printf("Entry 1: %s\n", entry_array.array[0]->d_name);
+  while(entry = readdir(folder)) {
+    entry_array.array[index] = entry;
+    printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
+    index++;
+  }
   
   free(entry_array.array);
   closedir(folder);
