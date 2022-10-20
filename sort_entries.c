@@ -46,6 +46,17 @@ int main() {
     printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
     index++;
   }
+
+  struct dirent *dirent_temp = entry_array.array[0];
+  entry_array.array[0] = entry_array.array[1];
+  entry_array.array[1] = dirent_temp;
+
+  printf("Switched entries\n");
+  index = 0;
+  while(entry_array.array[index] != NULL) {
+    printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
+    index++;
+  }
   
   free(entry_array.array);
   closedir(folder);
