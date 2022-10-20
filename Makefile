@@ -1,14 +1,14 @@
+	# gcc -o my_ls my_ls.o -Wall -Wextra -Werror
+	# gcc -c my_ls.c -Wall -Wextra -Werror
 all: my_ls
 
 my_ls: my_ls.o dir_ops.o
-	# gcc -o my_ls my_ls.o -Wall -Wextra -Werror
 	gcc -o my_ls my_ls.o dir_ops.o
 
 dir_ops.o: dir_ops.c
 	gcc -c dir_ops.c
 
 my_ls.o: my_ls.c
-	# gcc -c my_ls.c -Wall -Wextra -Werror
 	gcc -c my_ls.c
 
 clean: 
