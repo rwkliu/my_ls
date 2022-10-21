@@ -7,6 +7,13 @@
 #include <unistd.h>
 #include "dir_ops.h"
 
+//Implement: Sort entries alphabetically
+//Implement: Sort entries by tv_sec and tv_nsec
+//Sort dirent_array entries
+dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
+  
+}
+
 //Get each entry d_name, tv_sec, and tv_nsec values
 //If aflag = 1, the hidden file entries are added to the dirent_array
 dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int tflag) {
