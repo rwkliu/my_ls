@@ -1,8 +1,17 @@
+#ifndef STRUCT_DIRENT_ENTRY
+#define STRUCT_DIRENT_ENTRY
+typedef struct s_dirent_entry {
+  char *dir_name;
+  time_t t_sec;
+  long int t_nsec;
+} dirent_entry;
+#endif
+
 #ifndef STRUCT_DIRENT_ARRAY
 #define STRUCT_DIRENT_ARRAY
 typedef struct s_dirent_array {
   int size;
-  struct dirent **array;
+  struct s_dirent_entry **array;
 } dirent_array;
 #endif
 

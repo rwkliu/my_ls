@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <dirent.h>
 #include <sys/stat.h>
+#include <time.h>
+#include <unistd.h>
 #include "dir_ops.h"
 
 //Count the number of entries in the directory

@@ -49,14 +49,14 @@ int main(int argc, char *argv[]) {
   }
 
   //Read directory entries and assign dirent_array->array point to the entries
-  entry_array.size = count_entries(directory_name, aflag);
-  folder = opendir(directory_name);
-  entry_array.array = malloc(entry_array.size * sizeof(struct dirent *));
-  while((entry = readdir(folder)) && index < entry_array.size) {
-    entry_array.array[index] = entry;
-    printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
-    index++;
-  }
+  // entry_array.size = count_entries(directory_name, aflag);
+  // folder = opendir(directory_name);
+  // entry_array.array = malloc(entry_array.size * sizeof(dirent_entry *));
+  // while((entry = readdir(folder)) && index < entry_array.size) {
+  //   entry_array.array[index] = entry;
+  //   printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
+  //   index++;
+  // }
 
   closedir(folder);
   return 0;
