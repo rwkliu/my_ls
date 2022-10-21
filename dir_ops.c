@@ -12,6 +12,7 @@
 //Sort dirent_array entries
 dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
   
+  return dirents;
 }
 
 //Get each entry d_name, tv_sec, and tv_nsec values
