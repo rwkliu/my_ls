@@ -56,6 +56,14 @@ int main(int argc, char *argv[]) {
   //Print the entry names
   while((entry = readdir(folder)) && index < entry_array.size) {
     printf("Entry %d: %s\n", index, entry_array.array[index]->entry_name);
+    if(tflag == 1) {
+      printf("time in HH:MM:SS: %s", ctime(&entry_array.array[index]->t_sec));
+      printf("time in nanoseconds: %ld\n\n", entry_array.array[index]->t_nsec);
+    }
+    else {
+      printf("tv_sec = 0: %s", ctime(&entry_array.array[index]->t_sec));
+      printf("tv_nsec = 0: %ld\n\n", entry_array.array[index]->t_nsec);
+    }
     index++;
   }
 

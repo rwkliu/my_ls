@@ -10,14 +10,28 @@
 //Get each entry d_name, tv_sec, and tv_nsec values
 //If aflag = 1, the hidden file entries are added to the dirent_array
 dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int tflag) {
-  DIR *folder = opendir(dir_name);
-  struct dirent *entry;
-  dirents->array = malloc(dirents->size * sizeof(dirent_entry *));
   int index = 0;
-
+  struct stat filestat;
+  struct dirent *entry;
+  DIR *folder = opendir(dir_name);
+  dirents->array = malloc(dirents->size * sizeof(dirent_entry *));
+  
+  //Implement: get only non-hidden files
+  //Implement: get tv_sec and tv_nsec when tflag = 1
+  //Implement: get hidden files when aflag = 1
   while((entry = readdir(folder)) && index < dirents->size) {
     dirents->array[index] = malloc(sizeof(dirent_entry));
     dirents->array[index]->entry_name = entry->d_name;
+    if(tflag == 1) {
+      stat(entry->d_name, &filestat);
+      dirents->array[index]->t_sec = filestat.st_mtim.tv_sec;
+      dirents->array[index]->t_nsec = filestat.st_mtim.tv_nsec;
+    }
+    else {
+      dirents->array[index]->t_sec = 0;
+      dirents->array[index]->t_nsec = 0;
+    }
+    
     index++;
   }  
   closedir(folder);
@@ -52,9 +66,10 @@ int check_dir(char *directory) {
   DIR *dir = opendir(directory);
   
   if(dir == NULL) {
-      return 1;
+    return 1;
   }
   else {
     return 0;
   }
+  closedir(dir);
 }
