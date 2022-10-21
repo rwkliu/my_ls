@@ -9,8 +9,18 @@
 
 //Get each entry d_name, tv_sec, and tv_nsec values
 //If aflag = 1, the hidden file entries are added to the dirent_array
-dirent_array *get_entries(dirent_array *dirents, int aflag, int tflag) {
-  
+dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int tflag) {
+  DIR *folder = opendir(dir_name);
+  struct dirent *entry;
+  dirents->array = malloc(dirents->size * sizeof(dirent_entry *));
+  int index = 0;
+
+  while((entry = readdir(folder)) && index < dirents->size) {
+    dirents->array[index] = malloc(sizeof(dirent_entry));
+    dirents->array[index]->entry_name = entry->d_name;
+    index++;
+  }  
+  closedir(folder);
   return dirents;
 }
 
@@ -40,9 +50,10 @@ int count_entries(char *dir_name, int aflag) {
 //Check if directory is found
 int check_dir(char *directory) {
   DIR *dir = opendir(directory);
+  
   if(dir == NULL) {
       return 1;
-    }
+  }
   else {
     return 0;
   }

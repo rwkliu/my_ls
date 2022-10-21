@@ -48,15 +48,16 @@ int main(int argc, char *argv[]) {
     directory_name = ".";
   }
 
-  //Read directory entries and assign dirent_array->array point to the entries
-  // entry_array.size = count_entries(directory_name, aflag);
-  // folder = opendir(directory_name);
-  // entry_array.array = malloc(entry_array.size * sizeof(dirent_entry *));
-  // while((entry = readdir(folder)) && index < entry_array.size) {
-  //   entry_array.array[index] = entry;
-  //   printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
-  //   index++;
-  // }
+  //Get directory entries and save in entry_array
+  entry_array.size = count_entries(directory_name, aflag);
+  get_entries(directory_name, &entry_array, aflag, tflag);
+  folder = opendir(directory_name);
+  
+  //Print the entry names
+  while((entry = readdir(folder)) && index < entry_array.size) {
+    printf("Entry %d: %s\n", index, entry_array.array[index]->entry_name);
+    index++;
+  }
 
   closedir(folder);
   return 0;

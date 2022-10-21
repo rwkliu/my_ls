@@ -1,7 +1,7 @@
 #ifndef STRUCT_DIRENT_ENTRY
 #define STRUCT_DIRENT_ENTRY
 typedef struct s_dirent_entry {
-  char *dir_name;
+  char *entry_name;
   time_t t_sec;
   long int t_nsec;
 } dirent_entry;
@@ -16,7 +16,7 @@ typedef struct s_dirent_array {
 #endif
 
 //Get each entry d_name, tv_sec, and tv_nsec values
-dirent_array *get_entries(dirent_array *dirents, int aflag, int tflag);
+dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int tflag);
 
 //Count the number of entries in dir_name directory
 int count_entries(char *dir_name, int aflag);
