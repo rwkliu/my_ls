@@ -22,16 +22,9 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int 
   while((entry = readdir(folder)) && index < dirents->size) {
     dirents->array[index] = malloc(sizeof(dirent_entry));
     dirents->array[index]->entry_name = entry->d_name;
-    if(tflag == 1) {
-      stat(entry->d_name, &filestat);
-      dirents->array[index]->t_sec = filestat.st_mtim.tv_sec;
-      dirents->array[index]->t_nsec = filestat.st_mtim.tv_nsec;
-    }
-    else {
-      dirents->array[index]->t_sec = 0;
-      dirents->array[index]->t_nsec = 0;
-    }
-    
+    stat(entry->d_name, &filestat);
+    dirents->array[index]->t_sec = filestat.st_mtim.tv_sec;
+    dirents->array[index]->t_nsec = filestat.st_mtim.tv_nsec;
     index++;
   }  
   closedir(folder);
