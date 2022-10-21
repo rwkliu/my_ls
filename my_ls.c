@@ -9,14 +9,11 @@
 #include "dir_ops.h"
 
 int main(int argc, char *argv[]) {
-  DIR *folder = NULL;
   int aflag = 0;
   int tflag = 0;
   int index = 0;
   int curr_opt;
-  char *directory_name;
-  struct dirent *entry;
-  struct stat filestat;
+  char *directory_name = NULL;
   dirent_array entry_array;
   
   //Parse the optional arguments that start with '-'
@@ -33,21 +30,22 @@ int main(int argc, char *argv[]) {
 
   //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
-    printf("Non-option argument %d %s\n", i, argv[i]);
+    // printf("Non-option argument %d %s\n", i, argv[i]);
     if(check_dir(argv[i]) == 1) {
       printf("Unable to open directory\n");
       return 1;
     }
     else {
       directory_name = argv[i];
+      // printf("directory_name %s\n", directory_name);
     }
   }
 
   //If no non-options arguments were valid directories, open the current directory
-  if(folder == NULL) {
+  if(directory_name == NULL) {
     directory_name = ".";
   }
-
+  
   //Get directory entries and save in entry_array
   entry_array.size = count_entries(directory_name, aflag);
   get_entries(directory_name, &entry_array, aflag, tflag);
