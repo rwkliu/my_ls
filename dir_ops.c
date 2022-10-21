@@ -4,6 +4,8 @@
 #include <sys/stat.h>
 #include "dir_ops.h"
 
+//Count the number of entries in the directory
+//If aflag = 1, the hidden files are counted
 int count_entries(char *dir_name, int aflag) {
   DIR *directory;
   int entries = 0;

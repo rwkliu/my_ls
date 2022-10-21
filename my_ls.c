@@ -12,11 +12,12 @@ int main(int argc, char *argv[]) {
   DIR *folder = NULL;
   int aflag = 0;
   int tflag = 0;
-  int num_files = 0;
+  int index = 0;
   int curr_opt;
   char *directory_name;
   struct dirent *entry;
   struct stat filestat;
+  dirent_array entry_array;
   
   //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
@@ -29,7 +30,7 @@ int main(int argc, char *argv[]) {
         break;
     }
   }
-  // printf("aflag = %d, tflag = %d\n", aflag, tflag);
+
   //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
     printf("Non-option argument %d %s\n", i, argv[i]);
@@ -39,22 +40,22 @@ int main(int argc, char *argv[]) {
     }
     else {
       directory_name = argv[i];
-      folder = opendir(directory_name);
-      printf("Directory opened\n");
     }
   }
+
   //If no non-options arguments were valid directories, open the current directory
   if(folder == NULL) {
     directory_name = ".";
-    folder = opendir(directory_name);
-    // printf("Default: current directory opened\n");
   }
 
-  //Read directory entries
-  num_files = count_entries(directory_name, aflag);
-  printf("aflag: %d number of files: %d\n", aflag, num_files);
-  while(entry = readdir(folder)) {
-    printf("%s\n", entry->d_name);
+  //Read directory entries and assign dirent_array->array point to the entries
+  entry_array.size = count_entries(directory_name, aflag);
+  folder = opendir(directory_name);
+  entry_array.array = malloc(entry_array.size * sizeof(struct dirent *));
+  while((entry = readdir(folder)) && index < entry_array.size) {
+    entry_array.array[index] = entry;
+    printf("Entry %d: %s\n", index, entry_array.array[index]->d_name);
+    index++;
   }
 
   closedir(folder);
