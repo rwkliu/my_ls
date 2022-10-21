@@ -15,18 +15,21 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int 
   struct dirent *entry;
   DIR *folder = opendir(dir_name);
   dirents->array = malloc(dirents->size * sizeof(dirent_entry *));
-  
-  //Implement: get only non-hidden files
-  //Implement: get tv_sec and tv_nsec when tflag = 1
-  //Implement: get hidden files when aflag = 1
+
   while((entry = readdir(folder)) && index < dirents->size) {
+    if(aflag == 0) {
+      if(strncmp(entry->d_name, ".", 1) == 0) {
+        continue;
+      }
+    }
+    
     dirents->array[index] = malloc(sizeof(dirent_entry));
     dirents->array[index]->entry_name = entry->d_name;
     stat(entry->d_name, &filestat);
     dirents->array[index]->t_sec = filestat.st_mtim.tv_sec;
     dirents->array[index]->t_nsec = filestat.st_mtim.tv_nsec;
     index++;
-  }  
+  }
   closedir(folder);
   return dirents;
 }

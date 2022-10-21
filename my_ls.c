@@ -51,16 +51,14 @@ int main(int argc, char *argv[]) {
   //Get directory entries and save in entry_array
   entry_array.size = count_entries(directory_name, aflag);
   get_entries(directory_name, &entry_array, aflag, tflag);
-  folder = opendir(directory_name);
   
-  //Print the entry names
-  while((entry = readdir(folder)) && index < entry_array.size) {
-    printf("Entry %d: %s\n", index, entry_array.array[index]->entry_name);
-    printf("time in HH:MM:SS: %s", ctime(&entry_array.array[index]->t_sec));
-    printf("time in nanoseconds: %ld\n\n", entry_array.array[index]->t_nsec);
+  //Print entry_name, t_sec, and t_nsec of each directory entry
+  while(index < entry_array.size) {
+    printf("%s\n", entry_array.array[index]->entry_name);
+    // printf("Entry %d: %s\n", index, entry_array.array[index]->entry_name);
+    // printf("time in HH:MM:SS: %s", ctime(&entry_array.array[index]->t_sec));
+    // printf("time in nanoseconds: %ld\n\n", entry_array.array[index]->t_nsec);
     index++;
   }
-
-  closedir(folder);
   return 0;
 }
