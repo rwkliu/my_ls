@@ -7,6 +7,13 @@
 #include <unistd.h>
 #include "dir_ops.h"
 
+//Get each entry d_name, tv_sec, and tv_nsec values
+//If aflag = 1, the hidden file entries are added to the dirent_array
+dirent_array *get_entries(dirent_array *dirents, int aflag, int tflag) {
+  
+  return dirents;
+}
+
 //Count the number of entries in the directory
 //If aflag = 1, the hidden files are counted
 int count_entries(char *dir_name, int aflag) {
