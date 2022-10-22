@@ -126,6 +126,7 @@ void output_entries(char *dir_name, int aflag, int tflag) {
   dirent_array entry_array;
 
   entry_array.size = count_entries(dir_name, aflag);
+  printf("entry_array size: %d\n", entry_array.size);
   get_entries(dir_name, &entry_array, aflag, tflag);
   sort_entries(&entry_array, tflag);
   print_entries(&entry_array);

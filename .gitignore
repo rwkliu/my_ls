@@ -6,3 +6,6 @@ sort_entries
 ls.output
 my_ls.output
 tests and examples/directories
+tmp.txt
+ls_in_one
+lsone
