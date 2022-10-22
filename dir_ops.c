@@ -29,6 +29,7 @@ dirent_array *sort_entries(dirent_array *dirents, int tflag) {
 
   //Sort by time modified (recent to latest)
   if(tflag == 1) {
+    i = 1;
     while(i < dirents->size) {
       j = i;
       while(j > 0 && dirents->array[j-1]->t_sec < dirents->array[j]->t_sec) {
