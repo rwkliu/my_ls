@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
-// #include "dir_ops.h"
+
 #ifndef STRUCT_DIRENT_ENTRY
 #define STRUCT_DIRENT_ENTRY
 typedef struct s_dirent_entry {

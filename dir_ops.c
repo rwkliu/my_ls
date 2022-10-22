@@ -77,7 +77,8 @@ void print_entries(dirent_array *dirents) {
   int index = 0;
 
   while(index < dirents->size) {
-    printf("%s\n", dirents->array[index]->entry_name);
+    write(1, dirents->array[index]->entry_name, strlen(dirents->array[index]->entry_name));
+    write(1, "\n", 1);
     index++;
   }
 }
