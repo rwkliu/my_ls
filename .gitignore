@@ -3,3 +3,6 @@ my_ls
 getopt
 directory
 sort_entries
+ls.output
+my_ls.output
+tests and examples/directories
