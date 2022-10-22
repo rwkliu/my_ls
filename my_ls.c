@@ -11,7 +11,7 @@
 int main(int argc, char *argv[]) {
   int aflag = 0;
   int tflag = 0;
-  int index = 0;
+  int i = 0;
   int curr_opt;
   char *directory_name = NULL;
   dirent_array entry_array;
@@ -29,26 +29,23 @@ int main(int argc, char *argv[]) {
   }
 
   //Parse the non-option arguments
-  for(int i = optind; i < argc; i++) {
+  for(i = optind; i < argc; i++) {
     if(check_dir(argv[i]) == 1) {
       printf("Unable to open directory\n");
-      return 1;
     }
     else {
       directory_name = argv[i];
+      output_entries(directory_name, aflag, tflag);
     }
   }
 
   //If no non-options arguments were valid directories, open the current directory
-  if(directory_name == NULL) {
+  if(directory_name == NULL && i == optind) {
     directory_name = ".";
+    output_entries(directory_name, aflag, tflag);
+    return 0;
   }
-  
-  //Get directory entries and save in entry_array
-  entry_array.size = count_entries(directory_name, aflag);
-  get_entries(directory_name, &entry_array, aflag, tflag);
-  sort_entries(&entry_array, aflag, tflag);
-  print_entries(&entry_array);
-  
-  return 0;
+  else {
+    return 0;
+  }
 }

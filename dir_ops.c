@@ -89,6 +89,17 @@ int count_entries(char *dir_name, int aflag) {
   return entries;
 }
 
+//Get directory entries (dirents), save them into an array of dirents
+//sort the dirents, and print the dirent names 
+void output_entries(char *dir_name, int aflag, int tflag) {
+  dirent_array entry_array;
+
+  entry_array.size = count_entries(dir_name, aflag);
+  get_entries(dir_name, &entry_array, aflag, tflag);
+  sort_entries(&entry_array, aflag, tflag);
+  print_entries(&entry_array);
+}
+
 //Check if directory is found
 int check_dir(char *directory) {
   DIR *dir = opendir(directory);

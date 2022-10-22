@@ -27,5 +27,9 @@ void print_entries(dirent_array *dirents);
 //Count the number of entries in dir_name directory
 int count_entries(char *dir_name, int aflag);
 
+//Get directory entries (dirents), save them into an array of dirents
+//sort the dirents, and print the dirent names 
+void output_entries(char *dir_name, int aflag, int tflag);
+
 //Check if directory is found
 int check_dir(char *directory);
