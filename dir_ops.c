@@ -7,10 +7,24 @@
 #include <unistd.h>
 #include "dir_ops.h"
 
-//Implement: Sort entries alphabetically
 //Implement: Sort entries by tv_sec and tv_nsec
 //Sort dirent_array entries
 dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
+  int i = 1;
+  int j; 
+  dirent_entry *temp_ptr;
+
+  while(i < dirents->size) {
+    j = i;
+    while(j > 0 && (strcmp(dirents->array[j-1]->entry_name,
+           dirents->array[j]->entry_name) > 0)){
+      temp_ptr = dirents->array[j];
+      dirents->array[j] = dirents->array[j-1];
+      dirents->array[j-1] = temp_ptr;
+      j--;
+    }
+    i++;
+  }
   
   return dirents;
 }

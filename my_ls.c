@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
   //Get directory entries and save in entry_array
   entry_array.size = count_entries(directory_name, aflag);
   get_entries(directory_name, &entry_array, aflag, tflag);
+  sort_entries(&entry_array, aflag, tflag);
   
   //Print entry_name, t_sec, and t_nsec of each directory entry
   while(index < entry_array.size) {
