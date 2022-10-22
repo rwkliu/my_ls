@@ -112,7 +112,7 @@ int count_entries(char *dir_name, int aflag) {
 
   directory = opendir(dir_name);
 
-  while(dir_entry = readdir(directory)) {
+  while((dir_entry = readdir(directory))) {
     if(aflag == 0) {
       if(strncmp(dir_entry->d_name,".", 1) != 0){
         entries++;
