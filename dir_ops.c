@@ -9,11 +9,12 @@
 
 //Implement: Sort entries by tv_sec and tv_nsec
 //Sort dirent_array entries
-dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
+dirent_array *sort_entries(dirent_array *dirents, int tflag) {
   int i = 1;
   int j; 
   dirent_entry *temp_ptr;
-
+  
+  //sort entry names alphabetically
   while(i < dirents->size) {
     j = i;
     while(j > 0 && (strcmp(dirents->array[j-1]->entry_name,
@@ -24,6 +25,20 @@ dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
       j--;
     }
     i++;
+  }
+
+  //Sort by time modified (recent to latest)
+  if(tflag == 1) {
+    while(i < dirents->size) {
+      j = i;
+      while(j > 0 && dirents->array[j-1]->t_sec < dirents->array[j]->t_sec) {
+        temp_ptr = dirents->array[j];
+        dirents->array[j] = dirents->array[j-1];
+        dirents->array[j-1] = temp_ptr;
+        j--;
+      }
+      i++;
+    }
   }
   
   return dirents;
@@ -96,7 +111,7 @@ void output_entries(char *dir_name, int aflag, int tflag) {
 
   entry_array.size = count_entries(dir_name, aflag);
   get_entries(dir_name, &entry_array, aflag, tflag);
-  sort_entries(&entry_array, aflag, tflag);
+  sort_entries(&entry_array, tflag);
   print_entries(&entry_array);
 }
 

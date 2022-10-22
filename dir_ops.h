@@ -16,7 +16,7 @@ typedef struct s_dirent_array {
 #endif
 
 //Sort dirent array entries
-dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag);
+dirent_array *sort_entries(dirent_array *dirents, int tflag);
 
 //Get each entry d_name, tv_sec, and tv_nsec values
 dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int tflag);
