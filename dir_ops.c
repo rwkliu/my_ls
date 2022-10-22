@@ -110,10 +110,7 @@ int count_entries(char *dir_name, int aflag) {
 void output_entries(char *dir_name, int aflag, int tflag) {
   dirent_array entry_array;
 
-  entry_array.size = count_entries(dir_name, aflag);
-  get_entries(dir_name, &entry_array, aflag, tflag);
-  sort_entries(&entry_array, tflag);
-  print_entries(&entry_array);
+  
 }
 
 //Check if directory is found

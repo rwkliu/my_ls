@@ -35,14 +35,27 @@ int main(int argc, char *argv[]) {
     }
     else {
       directory_name = argv[i];
-      output_entries(directory_name, aflag, tflag);
+      entry_array.size = count_entries(directory_name, aflag);
+      get_entries(directory_name, &entry_array, aflag, tflag);
+      sort_entries(&entry_array, tflag);
+      if(argc - optind >= 2) {
+        printf("%s:\n", directory_name);
+        print_entries(&entry_array);
+        printf("\n");
+      }
+      else {
+        print_entries(&entry_array);
+      }
     }
   }
 
   //If no non-options arguments were valid directories, open the current directory
   if(directory_name == NULL && i == optind) {
     directory_name = ".";
-    output_entries(directory_name, aflag, tflag);
+    entry_array.size = count_entries(directory_name, aflag);
+    get_entries(directory_name, &entry_array, aflag, tflag);
+    sort_entries(&entry_array, tflag);
+    print_entries(&entry_array);
     return 0;
   }
   else {
