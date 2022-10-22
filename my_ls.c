@@ -30,14 +30,12 @@ int main(int argc, char *argv[]) {
 
   //Parse the non-option arguments
   for(int i = optind; i < argc; i++) {
-    // printf("Non-option argument %d %s\n", i, argv[i]);
     if(check_dir(argv[i]) == 1) {
       printf("Unable to open directory\n");
       return 1;
     }
     else {
       directory_name = argv[i];
-      // printf("directory_name %s\n", directory_name);
     }
   }
 
@@ -50,14 +48,7 @@ int main(int argc, char *argv[]) {
   entry_array.size = count_entries(directory_name, aflag);
   get_entries(directory_name, &entry_array, aflag, tflag);
   sort_entries(&entry_array, aflag, tflag);
+  print_entries(&entry_array);
   
-  //Print entry_name, t_sec, and t_nsec of each directory entry
-  while(index < entry_array.size) {
-    printf("%s\n", entry_array.array[index]->entry_name);
-    // printf("Entry %d: %s\n", index, entry_array.array[index]->entry_name);
-    // printf("time in HH:MM:SS: %s", ctime(&entry_array.array[index]->t_sec));
-    // printf("time in nanoseconds: %ld\n\n", entry_array.array[index]->t_nsec);
-    index++;
-  }
   return 0;
 }

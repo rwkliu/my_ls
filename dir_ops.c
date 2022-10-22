@@ -56,6 +56,16 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int 
   return dirents;
 }
 
+//Print entry names
+void print_entries(dirent_array *dirents) {
+  int index = 0;
+
+  while(index < dirents->size) {
+    printf("%s\n", dirents->array[index]->entry_name);
+    index++;
+  }
+}
+
 //Count the number of entries in the directory
 //If aflag = 1, the hidden files are counted
 int count_entries(char *dir_name, int aflag) {
