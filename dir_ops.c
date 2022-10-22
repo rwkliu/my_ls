@@ -47,7 +47,7 @@ dirent_array *sort_entries(dirent_array *dirents, int tflag) {
 
 //Get each entry d_name, tv_sec, and tv_nsec values
 //If aflag = 1, the hidden file entries are added to the dirent_array
-dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag, int tflag) {
+dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
   int index = 0;
   struct stat filestat;
   struct dirent *entry;
@@ -92,7 +92,7 @@ int count_entries(char *dir_name, int aflag) {
 
   directory = opendir(dir_name);
 
-  while(dir_entry = readdir(directory)) {
+  while((dir_entry = readdir(directory))) {
     if(aflag == 0) {
       if(strncmp(dir_entry->d_name,".", 1) != 0){
         entries++;
@@ -112,7 +112,7 @@ void output_entries(char *dir_name, int aflag, int tflag) {
   dirent_array entry_array;
 
   entry_array.size = count_entries(dir_name, aflag);
-  get_entries(dir_name, &entry_array, aflag, tflag);
+  get_entries(dir_name, &entry_array, aflag);
   sort_entries(&entry_array, tflag);
   print_entries(&entry_array);
 }

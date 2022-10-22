@@ -14,7 +14,6 @@ int main(int argc, char *argv[]) {
   int i = 0;
   int curr_opt;
   char *directory_name = NULL;
-  dirent_array entry_array;
   
   //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
