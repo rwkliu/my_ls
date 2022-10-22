@@ -96,7 +96,9 @@ void print_entries(dirent_array *dirents) {
   int index = 0;
 
   while(index < dirents->size) {
-    printf("%d %s\n", index, dirents->array[index]->entry_name);
+    // printf("%d %s\n", index, dirents->array[index]->entry_name);
+    write(1, dirents->array[index]->entry_name, strlen(dirents->array[index]->entry_name));
+    write(1, "\n", 1);
     index++;
   }
 }
@@ -132,7 +134,7 @@ void output_entries(char *dir_name, int aflag, int tflag) {
   entry_array.size = count_entries(dir_name, aflag);
   // printf("entry_array size: %d\n", entry_array.size);
   get_entries(dir_name, &entry_array, aflag, tflag);
-  // sort_entries(&entry_array, tflag);
+  sort_entries(&entry_array, tflag);
   print_entries(&entry_array);
 }
 
