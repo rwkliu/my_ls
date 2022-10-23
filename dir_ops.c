@@ -72,6 +72,25 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
   return dirents;
 }
 
+//Sort directory names passed in as non-option arguments
+char **sort_dir_names(char **directories, int dir_size) {
+  int i = 1;
+  int j;
+  char *temp_ptr;
+
+  while(i < dir_size) {
+    j = i;
+    while(j > 0 && (strcmp(directories[j-1], directories[j]) > 0)) {
+      temp_ptr = directories[j];
+      directories[j] = directories[j-1];
+      directories[j-1] = temp_ptr;
+      j--;
+    }
+    i++;
+  }
+  return directories;
+}
+
 //Print entry names
 void print_entries(dirent_array *dirents) {
   int index = 0;

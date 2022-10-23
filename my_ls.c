@@ -12,8 +12,10 @@ int main(int argc, char *argv[]) {
   int aflag = 0;
   int tflag = 0;
   int i = 0;
+  int dir_ind = 0;
   int curr_opt;
   char *directory_name = NULL;
+  char **directories = malloc(argc * sizeof(char *));
   
   //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
@@ -33,12 +35,20 @@ int main(int argc, char *argv[]) {
       printf("Unable to open directory\n");
     }
     else {
-      directory_name = argv[i];
-      output_entries(directory_name, aflag, tflag);
+      directories[dir_ind] = argv[i];
+      dir_ind++;
     }
   }
+  directories[dir_ind] = '\0';
+  directories = sort_dir_names(directories, dir_ind);
+  
+  while(*directories) {
+    printf("%s\n", *directories);
+    directories++;
+  }
+  // return 0;
 
-  //If no non-options arguments were valid directories, open the current directory
+  // If no non-options arguments were valid directories, open the current directory
   if(directory_name == NULL && i == optind) {
     directory_name = ".";
     output_entries(directory_name, aflag, tflag);

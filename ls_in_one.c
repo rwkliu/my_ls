@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
 
   //If no non-options arguments were valid directories, open the current directory
   if(directory_name == NULL && i == optind) {
-    directory_name = "/tmp/";
+    directory_name = "/tmp/";  //<=====HARD CODED directory_name 
     output_entries(directory_name, aflag, tflag);
     return 0;
   }

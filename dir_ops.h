@@ -21,6 +21,9 @@ dirent_array *sort_entries(dirent_array *dirents, int tflag);
 //Get each entry d_name, tv_sec, and tv_nsec values
 dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag);
 
+//Sort directory names passed in as non-option arguments
+char **sort_dir_names(char **directories, int dir_size);
+
 //Print entry names
 void print_entries(dirent_array *dirents);
 
