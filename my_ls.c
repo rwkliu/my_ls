@@ -42,25 +42,32 @@ int main(int argc, char *argv[]) {
     }
   }
   directories[dir_ind] = '\0';
-  directories = realloc(directories, dir_ind);
+  // directories = realloc(directories, dir_ind);
   //If the first non-option argument is a valid directory, 
   //Print each directory's entries
   if(directories[0] != NULL) {
     directories = sort_dir_names(directories, dir_ind);
     dir_size = dir_ind;
     dir_ind = 0;
-    while(*directories[dir_ind] != '\0') {
-      write(1, directories[dir_ind], strlen(directories[dir_ind]));
-      write(1, ":\n",2);
-      output_entries(directories[dir_ind], aflag, tflag);
 
-      if(dir_ind != dir_size - 1) {
-        write(1, "\n", 1);
+    //Only print the entries if only one valid directory
+    if(dir_ind - 1 <= 1) {
+      output_entries(directories[dir_ind], aflag, tflag);
+    }
+    else {
+      while(*directories[dir_ind] != '\0') {
+        write(1, directories[dir_ind], strlen(directories[dir_ind]));
+        write(1, ":\n",2);
+        output_entries(directories[dir_ind], aflag, tflag);
+
+        if(dir_ind != dir_size - 1) {
+          write(1, "\n", 1);
+        }
+        else {
+          break;
+        }
+        dir_ind++;
       }
-      else {
-        break;
-      }
-      dir_ind++;
     }
     free(directories);
     return 0;
