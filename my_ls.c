@@ -40,18 +40,20 @@ int main(int argc, char *argv[]) {
     }
   }
   directories[dir_ind] = '\0';
-  directories = sort_dir_names(directories, dir_ind);
-  
-  while(*directories) {
-    printf("%s\n", *directories);
-    directories++;
+  //If the first non-option argument is a valid directory, 
+  //Print each directory's entries
+  if(directories[0] != NULL) {
+    directories = sort_dir_names(directories, dir_ind);
+
+    free(directories);
+    return 0;
   }
-  // return 0;
 
   // If no non-options arguments were valid directories, open the current directory
-  if(directory_name == NULL && i == optind) {
+  if(directories[0] == NULL && i == optind) {
     directory_name = ".";
     output_entries(directory_name, aflag, tflag);
+    free(directories);
     return 0;
   }
   else {
