@@ -9,7 +9,7 @@
 
 //Implement: Sort entries by tv_sec and tv_nsec
 //Sort dirent_array entries
-dirent_array *sort_entries(dirent_array *dirents, int tflag) {
+dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
   int i = 1;
   int j; 
   dirent_entry *temp_ptr;
@@ -33,6 +33,20 @@ dirent_array *sort_entries(dirent_array *dirents, int tflag) {
     while(i < dirents->size) {
       j = i;
       while(j > 0 && dirents->array[j-1]->t_nsec < dirents->array[j]->t_nsec) {
+        temp_ptr = dirents->array[j];
+        dirents->array[j] = dirents->array[j-1];
+        dirents->array[j-1] = temp_ptr;
+        j--;
+      }
+      i++;
+    }
+  }
+  //Sort by t_sec if hidden files are included
+  if(aflag == 1) {
+    i = 1;
+    while(i < dirents->size) {
+      j = i;
+      while(j > 0 && dirents->array[j-1]->t_sec < dirents->array[j]->t_sec) {
         temp_ptr = dirents->array[j];
         dirents->array[j] = dirents->array[j-1];
         dirents->array[j-1] = temp_ptr;
@@ -133,7 +147,7 @@ void output_entries(char *dir_name, int aflag, int tflag) {
 
   entry_array.size = count_entries(dir_name, aflag);
   get_entries(dir_name, &entry_array, aflag);
-  sort_entries(&entry_array, tflag);
+  sort_entries(&entry_array, aflag, tflag);
   print_entries(&entry_array);
 }
 

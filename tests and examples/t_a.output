@@ -1,0 +1,13 @@
+dir_ops.c
+dir_ops.h
+.
+my_ls
+tests and examples
+.git
+my_ls.c
+Makefile
+ls_in_one.c
+.gitignore
+ls_in_one
+..
+README.md
