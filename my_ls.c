@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
   int curr_opt;
   char *directory_name = NULL;
   char **directories = malloc(argc * sizeof(char *));
-  char **head = directories;
   
   //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
@@ -42,7 +41,7 @@ int main(int argc, char *argv[]) {
     }
   }
   directories[dir_ind] = NULL;
-  // directories = realloc(directories, dir_ind);
+  
   //If the first non-option argument is a valid directory, 
   //Print each directory's entries
   if(directories[0] != NULL) {
@@ -51,7 +50,7 @@ int main(int argc, char *argv[]) {
     dir_ind = 0;
 
     //Only print the entries if only one valid directory
-    if(dir_size - 1 <= 1) {
+    if(dir_size - 1 < 1) {
       output_entries(directories[dir_ind], aflag, tflag);
     }
     else {
