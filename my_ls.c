@@ -13,9 +13,11 @@ int main(int argc, char *argv[]) {
   int tflag = 0;
   int i = 0;
   int dir_ind = 0;
+  int dir_size;
   int curr_opt;
   char *directory_name = NULL;
   char **directories = malloc(argc * sizeof(char *));
+  char **head = directories;
   
   //Parse the optional arguments that start with '-'
   while((curr_opt = getopt(argc, argv, "at")) != -1) {
@@ -40,11 +42,26 @@ int main(int argc, char *argv[]) {
     }
   }
   directories[dir_ind] = '\0';
+  directories = realloc(directories, dir_ind);
   //If the first non-option argument is a valid directory, 
   //Print each directory's entries
   if(directories[0] != NULL) {
     directories = sort_dir_names(directories, dir_ind);
+    dir_size = dir_ind;
+    dir_ind = 0;
+    while(*directories[dir_ind] != '\0') {
+      write(1, directories[dir_ind], strlen(directories[dir_ind]));
+      write(1, ":\n",2);
+      output_entries(directories[dir_ind], aflag, tflag);
 
+      if(dir_ind != dir_size - 1) {
+        write(1, "\n", 1);
+      }
+      else {
+        break;
+      }
+      dir_ind++;
+    }
     free(directories);
     return 0;
   }
