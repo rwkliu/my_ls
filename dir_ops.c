@@ -32,7 +32,7 @@ dirent_array *sort_entries(dirent_array *dirents, int tflag) {
     i = 1;
     while(i < dirents->size) {
       j = i;
-      while(j > 0 && dirents->array[j-1]->t_sec < dirents->array[j]->t_sec) {
+      while(j > 0 && dirents->array[j-1]->t_nsec < dirents->array[j]->t_nsec) {
         temp_ptr = dirents->array[j];
         dirents->array[j] = dirents->array[j-1];
         dirents->array[j-1] = temp_ptr;
