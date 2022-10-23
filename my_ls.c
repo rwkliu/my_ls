@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
       dir_ind++;
     }
   }
-  directories[dir_ind] = '\0';
+  directories[dir_ind] = NULL;
   // directories = realloc(directories, dir_ind);
   //If the first non-option argument is a valid directory, 
   //Print each directory's entries
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     dir_ind = 0;
 
     //Only print the entries if only one valid directory
-    if(dir_ind - 1 <= 1) {
+    if(dir_size - 1 <= 1) {
       output_entries(directories[dir_ind], aflag, tflag);
     }
     else {
