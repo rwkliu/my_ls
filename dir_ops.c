@@ -40,6 +40,17 @@ dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
       }
       i++;
     }
+    i = 1;
+    while(i < dirents->size) {
+      j = i;
+      while(j > 0 && dirents->array[j-1]->t_sec < dirents->array[j]->t_sec) {
+        temp_ptr = dirents->array[j];
+        dirents->array[j] = dirents->array[j-1];
+        dirents->array[j-1] = temp_ptr;
+        j--;
+      }
+      i++;
+    }
   }
   //Sort by t_sec if hidden files are included
   if(aflag == 1) {

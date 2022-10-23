@@ -76,7 +76,6 @@ int main(int argc, char *argv[]) {
   if(directories[0] == NULL && i == optind) {
     directory_name = ".";
     output_entries(directory_name, aflag, tflag);
-    free(directories);
     return 0;
   }
   else {
