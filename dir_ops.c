@@ -90,7 +90,7 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
       stat_result = stat(path, &filestat);
     }
     else {
-      stat(path, &filestat);
+      stat(entry->d_name, &filestat);
     }
 
     dirents->array[index] = malloc(sizeof(dirent_entry));
