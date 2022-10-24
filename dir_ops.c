@@ -52,20 +52,6 @@ dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
       i++;
     }
   }
-  //Sort by t_sec if hidden files are included
-  if(aflag == 1) {
-    i = 1;
-    while(i < dirents->size) {
-      j = i;
-      while(j > 0 && dirents->array[j-1]->t_sec < dirents->array[j]->t_sec) {
-        temp_ptr = dirents->array[j];
-        dirents->array[j] = dirents->array[j-1];
-        dirents->array[j-1] = temp_ptr;
-        j--;
-      }
-      i++;
-    }
-  }
   
   return dirents;
 }
@@ -79,6 +65,18 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
   DIR *folder = opendir(dir_name);
   dirents->array = malloc(dirents->size * sizeof(dirent_entry *));
 
+  int stat_result;
+  char *path = strdup(dir_name);
+  int file_path_len = strlen(path);
+
+  if(strcmp(dir_name, ".") != 0) {
+    if(dir_name[strlen(dir_name)] != '/') {
+      path = realloc(path, strlen(path) + 1 * sizeof(char));
+      strcat(path, "/");
+      file_path_len++;
+    }
+  }
+
   while((entry = readdir(folder)) && index < dirents->size) {
     if(aflag == 0) {
       if(strncmp(entry->d_name, ".", 1) == 0) {
@@ -86,14 +84,25 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
       }
     }
     
+    if(strcmp(dir_name, ".") != 0) {
+      path = realloc(path, strlen(path) + strlen(entry->d_name) * sizeof(char));
+      strcat(path, entry->d_name);
+      stat_result = stat(path, &filestat);
+    }
+    else {
+      stat(path, &filestat);
+    }
+
     dirents->array[index] = malloc(sizeof(dirent_entry));
     dirents->array[index]->entry_name = entry->d_name;
-    stat(entry->d_name, &filestat);
+    
     dirents->array[index]->t_sec = filestat.st_mtim.tv_sec;
     dirents->array[index]->t_nsec = filestat.st_mtim.tv_nsec;
     index++;
+    path[file_path_len] = '\0';
   }
   closedir(folder);
+  free(path);
   return dirents;
 }
 

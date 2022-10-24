@@ -8,7 +8,7 @@
 #include <string.h>
 
 int main() {
-  char *file_path = ".";
+  char *file_path = "/home/";
   DIR *folder = opendir(file_path);  //directory handle for the opendir function
   struct dirent *entry; //contains directory entry information
   struct stat filestat; //contains info about a directory entry
@@ -22,7 +22,7 @@ int main() {
     if(file_path[strlen(file_path)] != '/') {
       path = realloc(path, strlen(path) + 1 * sizeof(char));
       strcat(path, "/");
-      file_path_len = strlen(path);
+      file_path_len++;
     }
   }
 
