@@ -9,7 +9,7 @@
 
 //Implement: Sort entries by tv_sec and tv_nsec
 //Sort dirent_array entries
-dirent_array *sort_entries(dirent_array *dirents, int aflag, int tflag) {
+dirent_array *sort_entries(dirent_array *dirents, int tflag) {
   int i = 1;
   int j; 
   dirent_entry *temp_ptr;
@@ -65,7 +65,6 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
   DIR *folder = opendir(dir_name);
   dirents->array = malloc(dirents->size * sizeof(dirent_entry *));
 
-  int stat_result;
   char *path = strdup(dir_name);
   int file_path_len = strlen(path);
 
@@ -87,7 +86,7 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
     if(strcmp(dir_name, ".") != 0) {
       path = realloc(path, strlen(path) + strlen(entry->d_name)+1);
       strcat(path, entry->d_name);
-      stat_result = stat(path, &filestat);
+      stat(path, &filestat);
     }
     else {
       stat(entry->d_name, &filestat);
@@ -167,7 +166,7 @@ void output_entries(char *dir_name, int aflag, int tflag) {
 
   entry_array.size = count_entries(dir_name, aflag);
   get_entries(dir_name, &entry_array, aflag);
-  sort_entries(&entry_array, aflag, tflag);
+  sort_entries(&entry_array, tflag);
   print_entries(&entry_array);
 }
 
