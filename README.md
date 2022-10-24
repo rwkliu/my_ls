@@ -13,7 +13,7 @@ The command options are available:
 ## Description
 my_ls has the following functionality when run with certain command line arguments:
 
-1. ./my_ls : Displays the current directory entries
+1. ./my_ls : Displays the current directory entries (.)
 
 2. ./my_ls -a : Displays the current directory entries including the hidden files
 
@@ -33,7 +33,11 @@ The program sequence is as follows:
 
 1. Parse the optional arguments (-at) and set the appropriate flag variables (aflag, tflag).
 
-2. Parse the non-option arguments (paths). If there are no non-option arguments or invalid directories, assign the directories to 
+2. Parse the non-option arguments (paths) and store them in an array. Sort the array.
+If there are no non-option arguments or invalid directories, display the current directory's entries. 
+
+3. For each directory (or current directory), get the entries, sort the entries,
+and print the entries. 
 
 ### The Core Team
 
