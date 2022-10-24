@@ -39,6 +39,10 @@ If there are no non-option arguments or invalid directories, display the current
 3. For each directory (or current directory), get the entries, sort the entries,
 and print the entries. 
 
+## Things to Improve
+
+1. Fix AddressSanitizer issues
+
 ### The Core Team
 
 
