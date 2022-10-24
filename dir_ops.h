@@ -2,7 +2,7 @@
 #define STRUCT_DIRENT_ENTRY
 typedef struct s_dirent_entry {
   char *entry_name;
-  time_t t_sec;
+  long int t_sec;
   long int t_nsec;
 } dirent_entry;
 #endif
