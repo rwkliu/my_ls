@@ -71,7 +71,7 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
 
   if(strcmp(dir_name, ".") != 0) {
     if(dir_name[strlen(dir_name)] != '/') {
-      path = realloc(path, strlen(path) + 1 * sizeof(char));
+      path = realloc(path, strlen(path) + 1);
       strcat(path, "/");
       file_path_len++;
     }
@@ -85,7 +85,7 @@ dirent_array *get_entries(char *dir_name, dirent_array *dirents, int aflag) {
     }
     
     if(strcmp(dir_name, ".") != 0) {
-      path = realloc(path, strlen(path) + strlen(entry->d_name) * sizeof(char));
+      path = realloc(path, strlen(path) + strlen(entry->d_name)+1);
       strcat(path, entry->d_name);
       stat_result = stat(path, &filestat);
     }
