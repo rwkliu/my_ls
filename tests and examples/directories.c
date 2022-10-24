@@ -8,11 +8,12 @@
 #include <string.h>
 
 int main() {
-  DIR *folder = opendir("/home");  //directory handle for the opendir function
+  char *file_path = "/home/";
+  DIR *folder = opendir(file_path);  //directory handle for the opendir function
   struct dirent *entry; //contains directory entry information
   struct stat filestat; //contains info about a directory entry
   int files = 0;
-  char *path = strdup("/home/");
+  char *path = strdup(file_path);
   int input_path_len = strlen(path);
 
   while((entry = readdir(folder)) != NULL) {
