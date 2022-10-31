@@ -1,7 +1,7 @@
 all: my_ls
 
 my_ls: my_ls.o dir_ops.o
-	gcc -o my_ls my_ls.o dir_ops.o 
+	gcc -o my_ls my_ls.o dir_ops.o -Wall -Werror -Wextra
 	
 dir_ops.o: dir_ops.c
 	gcc -c dir_ops.c 
