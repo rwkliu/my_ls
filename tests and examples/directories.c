@@ -20,7 +20,7 @@ int main() {
 
   if(strcmp(file_path, ".") != 0) {
     if(file_path[strlen(file_path)] != '/') {
-      path = realloc(path, strlen(path) + 1 * sizeof(char));
+      path = realloc(path, strlen(path) + 2 * sizeof(char));
       strcat(path, "/");
       file_path_len++;
     }
@@ -29,7 +29,7 @@ int main() {
   while((entry = readdir(folder)) != NULL) {
     files++;
     if(strcmp(file_path, ".") != 0) {
-      path = realloc(path, strlen(path) + strlen(entry->d_name) * sizeof(char));
+      path = realloc(path, strlen(path) + strlen(entry->d_name) + 1 * sizeof(char));
       strcat(path, entry->d_name);
       stat_result = stat(path, &filestat);
     }
