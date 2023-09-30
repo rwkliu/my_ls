@@ -1,16 +1,17 @@
-# Welcome to My Ls
+# My Ls
 ***
 
-## Task
-The task is to write a program similar in functionality to ls. 
+<p align="center"><img src='images/my_ls_usage.png'></p>
+
+## Summary 
+This program is an implementation of the Linux 'ls' command that shows the names of the files in a specified directory. 
 The command options are available: 
 
 -a: includes hidden files and directories
 
 -t: sorts files by time modified from most recent to latest
 
-
-## Description
+## Usage 
 my_ls has the following functionality when run with certain command line arguments:
 
 1. ./my_ls : Displays the current directory entries (.)
@@ -26,9 +27,9 @@ sorted by time modified
 If -a is provided, the hidden files are displayed. If -t is provided, the entries are sorted by time modified.
 
 ## Installation
-The program is composed of four files: my_ls.c, dir_op.c, dir_ops.h, and Makefile.
+Run **make** to compile the program and generate the executable file **my_ls**. The program requires my_ls.c and dir_op.c. 
 
-## Usage
+## Description 
 The program sequence is as follows: 
 
 1. Parse the optional arguments (-at) and set the appropriate flag variables (aflag, tflag).
@@ -38,13 +39,3 @@ If there are no non-option arguments or invalid directories, display the current
 
 3. For each directory (or current directory), get the entries, sort the entries,
 and print the entries. 
-
-## Things to Improve
-
-1. Fix AddressSanitizer issues
-
-### The Core Team
-
-
-<span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
-<span><img alt='Qwasar SV -- Software Engineering School's Logo' src='https://storage.googleapis.com/qwasar-public/qwasar-logo_50x50.png' width='20px'></span>
